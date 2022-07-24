@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read CSV</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
+</head>
+<body><div class="subscribe-container">
+    <a href="Index.html">Compare two input names</a>
+    <form id="myForm">
+
+        <input type="file" id="csvFile" accept=".csv" />
+        <input type="submit" value="Submit" class="subscribe-button" />
+    </form>
+</div>
+    
+    <script>
+        const myForm = document.getElementById("myForm");
+        const csvFile = document.getElementById("csvFile");
+
+        myForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const input = csvFile.files[0];
+            const reader = new FileReader();
+            var OutPutStr = "";
+
+            reader.onload = function (e) {
+                const text = e.target.result;
+
+                var nameArr = text.split(',');
+
+                //document.write(nameArr[0]);
+
+                var ArrayMale = [];
+                var ArrayFemale = [];
+                var Person = "";
+                var FemaleName = "";
+                for (var i = 0; i < nameArr.length; i++) {
+
+                    if (nameArr[i] != "m" && nameArr[i] != "f") {
+                        Person = nameArr[i];
+                    }
+
+                    if (nameArr[i] == "m") {
+                        ArrayMale.push(Person);
+                    }
+
+                    if (nameArr[i] == "f") {
+                        ArrayFemale.push(Person);
+                    }
+
+                }
+
+                //OUTPUT
+                for (var i = 0; i < ArrayMale.length; i++) {
+                    var Person1 = ArrayMale[i];
+                   
+                    for (var j = 0; j < ArrayFemale.length; j++) {
+                        var Person2 = ArrayFemale[j];
+
+                        var str = Person1 + "Matches" + Person2
+                        str = str.replace(" ", "");
+
+                        var a = str;
+                        var b = {};
+                        var numbers = [];
+                        for (let e = 0; e < a.length; e++) {
+                            if ((a.match(new RegExp(a[e], "g"))).length > 0) {
+                                b[a[e]] = (a.match(new RegExp(a[e], "g"))).length;
+                            }
+                        }
+
+                        for (var key in b) {
+                            if (b.hasOwnProperty(key)) {
+                                /*console.log(key + " -> " + b[key]);*/
+                                numbers += b[key]
+                            }
+                        }
+
+                        const half = Math.ceil(numbers.length / 2);
+
+                        const firstHalf = numbers.slice(0, half)
+                        const secondHalf = numbers.slice(half)
+                        var secondHalfSortOrder = [];
+                        var FirstTotal = 0;
+                        Object.keys(secondHalf).reverse()
+                            .forEach(function (index) {
+                                /*console.log(secondHalf[index]);*/
+                                secondHalfSortOrder += secondHalf[index]
+                            });
+
+                        var c = [];
+                        for (var r = 0; r < Math.max(firstHalf.length, secondHalfSortOrder.length); r++) {
+                            c.push(parseInt((firstHalf[r] || 0)) + parseInt((secondHalfSortOrder[r] || 0)));
+                        }
+
+                        if (c.length > 2) {
+                            const halfC = Math.ceil(c.length / 2);
+
+                            const firstHalfC = c.slice(0, halfC)
+                            const secondHalfC = c.slice(halfC)
+                            var secondHalfSortOrderC = [];
+                            var FirstTotalC = 0;
+                            /*console.log(firstHalfC + " " + secondHalfC);*/
+                            Object.keys(secondHalfC).reverse()
+                                .forEach(function (index) {
+                                    /*console.log(secondHalf[index]);*/
+                                    secondHalfSortOrderC += secondHalfC[index]
+                                });
+                            var c1 = [];
+                            for (var t = 0; t < Math.max(firstHalfC.length, secondHalfSortOrderC.length); t++) {
+                                c1.push(parseInt((firstHalfC[t] || 0)) + parseInt((secondHalfSortOrderC[t] || 0)));
+                            }
+                            /* console.log("C1 "+ c1);*/
+                        }
+
+                        if (c1.length > 2) {
+                            const halfC2 = Math.ceil(c1.length / 2);
+
+                            const firstHalfC2 = c1.slice(0, halfC2)
+                            const secondHalfC2 = c1.slice(halfC2)
+                            var secondHalfSortOrderC2 = [];
+                            var FirstTotalC2 = 0;
+                            /* console.log(firstHalfC2 + " " + secondHalfC2);*/
+                            Object.keys(secondHalfC2).reverse()
+                                .forEach(function (index) {
+                                    /*console.log(secondHalf[index]);*/
+                                    secondHalfSortOrderC2 += secondHalfC2[index]
+                                });
+                            var c2 = [];
+                            for (var y = 0; y < Math.max(firstHalfC2.length, secondHalfSortOrderC2.length); y++) {
+                                c2.push(parseInt((firstHalfC2[y] || 0)) + parseInt((secondHalfSortOrderC2[y] || 0)));
+                            }
+                        }
+
+                        var Total = "";
+                        for (var key in c2) {
+                            if (Total == "") {
+                                Total = c2[key];
+                                Total = Total.toString().slice(0, 1)
+                                /*console.log(string.slice(0, 1));*/
+                            } else
+                                Total = parseInt(Total.toString().slice(0, 1)) + parseInt(c2[key]);
+                        }
+
+                        if (Total.toString().length <= 1) {
+                            if (parseInt(Total.toString()) >= 8) {
+                                OutPutStr += Person1 + " matches " + Person2 + " " + Total.toString() + "0%, good match\n";
+                            }
+                            else {
+                                OutPutStr += Person1 + " matches " + Person2 + " " + Total.toString() + "0%\n";
+                            }
+
+                        } else
+                            if (parseInt(Total.toString()) >= 80) {
+                                OutPutStr += Person1 + " matches " + Person2 + " " + Total.toString() + "%, good match\n";
+                            }
+                            else {
+                                OutPutStr += Person1 + " matches " + Person2 + " " + Total.toString() + "%\n";
+                            }
+
+                    }
+                    OutPutStr += "\n\n"
+                }
+                download('Output.txt', OutPutStr);
+                //document.write(ArrayMale);
+
+            };
+            
+            reader.readAsText(input);
+            
+        });
+
+        function download(filename, text) {
+            var pom = document.createElement('a');
+            pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            pom.setAttribute('download', filename);
+
+            if (document.createEvent) {
+                var event = document.createEvent('MouseEvents');
+                event.initEvent('click', true, true);
+                pom.dispatchEvent(event);
+            }
+            else {
+                pom.click();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
+    <title>html form</title>
+</head>
+<body>
+    <div><h2 align="center">LumeTeam Tennis Club</h2></div>
+    
+    <div class="subscribe-container">
+        <a href="CSVUpload.html">Upload Names from CSV File</a>
+        <form method="POST">
+            <input type="text" name="Person1" placeholder="Person 1 (First Name)" onkeydown="return /[a-z]/i.test(event.key)" required>
+            <input type="text" name="Person2" placeholder="Person 2 (First Name)" onkeydown="return /[a-z]/i.test(event.key)" required>
+            <input class="subscribe-button" type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

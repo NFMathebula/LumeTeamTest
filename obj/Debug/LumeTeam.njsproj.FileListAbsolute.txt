@@ -1,0 +1,3 @@
+C:\Users\Default.DESKTOP-E470SCA\source\repos\LumeTeam\LumeTeam\obj\Debug\LumeTeam.njsproj.AssemblyReference.cache
+C:\Users\Default.DESKTOP-E470SCA\source\repos\LumeTeam\LumeTeam\obj\Debug\LumeTeam.njsproj.CoreCompileInputs.cache
+C:\Users\Default.DESKTOP-E470SCA\source\repos\LumeTeam\LumeTeam\bin\Microsoft.NodejsTools.WebRole.dll
